@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+        <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+        <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+		<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>-->
+        <title>iBanda</title>
+    </head>
+    <body>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <header class='jumbotron'>
+            <h1>iBanda</h1>
+        </header>
+        <center><h2>Descrição da Obra</h2></center>
+        <div class='container'>
+        <table class="table table-hover" style='width:100%'>
+            <% if(obra.titulo != ""){%>
+            <tr style='width:100%'>
+                <td><center><h2><%= obra.titulo %></h2></center></td>
+            </tr>
+            <% } %>       
+            <% if(obra.tipo != ""){%>
+            <tr>
+                <td><b>Tipo: </b><%= obra.tipo %></td>  
+            </tr>
+            <% } %>
+            <% if(obra.compositor != ""){%>						
+            <tr>
+                <td><b>Compositor: </b><%= obra.compositor %></td> 
+            </tr>
+            <% } %>
+            <% if(obra.arranjo && obra.arranjo != "" ){%>						
+            <tr>
+                <td><b>Arranjo: </b><%= obra.arranjo %></td> 
+            </tr>
+            <% } %>
+        </table>
+        <% if(obra.instrumentos){%>
+        <div class='container'>
+            <div class='jumbotron'>
+                <center><h3>Partituras Disponíveis</h3></center>
+            </div>
+            <table class='table'>
+                <thead class="thead-dark">
+                    <tr >
+                        <td scope="col"><b>Instrumento</b></td>
+                        <td scope="col"><b>Voz</b></td>
+                        <td scope="col"><b>Clave</b></td>
+                        <td scope="col"><b>Afinação</b></td>
+                        <td scope="col"><b>Formato</b></td>
+                    </tr>
+                </thead>
+                <%for(var j=0; j<obra.instrumentos.length; j++){%>
+                <tr>
+                    <td><%= obra.instrumentos[j].nome %></td>
+                    <% if(obra.instrumentos[j].partitura.voz && obra.instrumentos[j].partitura.voz != "" ){%>						
+                    <td><%= obra.instrumentos[j].partitura.voz %></td> 
+                    <% } else {%>
+                    <td></td>
+                    <% } %>
+                    <% if(obra.instrumentos[j].partitura.clave && obra.instrumentos[j].partitura.clave != "" ){%>						
+                    <td><%= obra.instrumentos[j].partitura.clave %></td> 
+                    <% } else {%>
+                    <td></td>
+                    <% } %>
+                    <% if(obra.instrumentos[j].partitura.afinacao && obra.instrumentos[j].partitura.afinacao != "" ){%>						
+                    <td><%= obra.instrumentos[j].partitura.afinacao %></td> 
+                    <% } else {%>
+                    <td></td>
+                    <% } %>
+                </tr>
+                <% } %>
+            </table>
+            </div>
+        </div>
+        <% } %>
+    </body>    
+</html>
