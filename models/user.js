@@ -8,7 +8,7 @@ var Schema = mongoose.Schema
 
 var userSchema = mongoose.Schema({
 
-    local            : {
+    local: {
         /*name:{
             type: String,
             required : true
@@ -17,7 +17,7 @@ var userSchema = mongoose.Schema({
             type: String,
             required : true
         },
-        grau:{
+            grau:{
             type: String,
             required : true
         },
@@ -60,7 +60,7 @@ userSchema.methods.validPassword = function(password) {
 };
 
 // create the model for users and expose it to our app
-module.exports = mongoose.model('User', userSchema, 'users');
+module.exports = mongoose.model('User', userSchema);
 
 
 

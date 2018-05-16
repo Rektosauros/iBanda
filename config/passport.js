@@ -26,16 +26,16 @@ module.exports = function(passport) {
     // =========================================================================
 
     passport.use('local-signup', new LocalStrategy({
-        //nameField : 'name',
-        //dnField : 'dn',
-        //grauField : 'grau',
-        //instrumentoField : 'instrumento',
-        //emailField : 'email',
-        usernameField : 'username',
-        passwordField : 'password',
-        passReqToCallback : true // allows us to pass back the entire request to the callback
+        usernameField: 'username',
+        passwordField: 'password',
+        /*nameField: 'name',
+        dnField: 'dn',
+        grauField: 'grau',
+        instrumentoField: 'instrumento',
+        emailField: 'email',*/
+        passReqToCallback : true  // allows us to pass back the entire request to the callback
     },
-    function(req,/*name, dn, grau, instrumento, email,*/ username, password, done) {
+    function(req,username, password, /*name, dn, grau, instrumento, email,*/done) {
 
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
@@ -48,19 +48,26 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
             } else {
 
+                
+                
+                
                 var newUser = new User();
                 //set the user's local credentials
-                //newUser.local.name = name;
-                //newUser.local.dn = dn;
-                //newUser.local.grau = grau;
-                //newUser.local.instrumento = instrumento;
-                //newUser.local.email = email;
+                /*newUser.local.name = name;
+                newUser.local.dn = dn;
+                newUser.local.grau = grau;
+                newUser.local.instrumento = instrumento;
+                newUser.local.email = email;*/
                 newUser.local.username = username;
                 newUser.local.password = password;
+                
+
 
                 newUser.save(function(err) {
-                    if (err)
+                    if (err){
+                        console.log("ERRO");
                         throw err;
+                    }
                     return done(null, newUser);
                 });
             }
@@ -68,6 +75,7 @@ module.exports = function(passport) {
         });    
 
         });
+        
 
     }));
 

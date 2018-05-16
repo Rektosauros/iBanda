@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-         <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<%- include('header') -%>
 
-    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-        <title>iBanda</title>
-    </head>
-    <body>
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-        <header class='w3-container w3-light-grey'>
-            <h1>iBanda</h1>
-        </header>
-        
-        <% if(eventos){ 
+
+        <% if(eventos){
         for(var i=0; i<eventos.length; i++){ %>
             <table class='w3-table'>
                 <tr>
@@ -27,7 +11,7 @@
                         <%=data.getDate()%>/<%=data.getMonth()+1%>/<%=data.getFullYear()%>
                         às <%=data.getHours()%>:<%if(data.getMinutes() < 10){%>0<%= data.getMinutes() %><% } else { %><%= data.getMinutes() %>
                         <% } %>
-                    </td> 
+                    </td>
                 </tr>
                 <tr>
                     <th>Duração: </th>
@@ -47,21 +31,61 @@
                         <%=eventos[i].designacao%>
                     </td>
                 </tr>
+                <tr>
+                    <th>Valor a pagar a cada músico: </th>
+                    <td>
+                        <%=eventos[i].valor%>
+                    </td>
+                </tr>
             </table>
-        <% }} %>        
-        <form action='/novoevento' method='POST'>
-            <input type='text' placeholder='Ano' value=<%=ano%> name='ano'/>
-            <input type='text' placeholder='Mês' value=<%=mes%> name='mes'/>
-            <input type='text' placeholder='Dia' value=<%=dia%> name='dia'/><br>
-            <input type='text' placeholder='Horas' name='horas'/>
-            <input type='text' placeholder='Minutos' name='minutos'/><br>
-            <input type='text' placeholder='Duração' name='duracao'/><br>
-            <input type='text' placeholder='Local' name='local'/><br>
-            <input type='text' placeholder='Designação' name='designacao'/><br>
-            <div align='right'>
-                <input type='submit' value='Publicar' class='w3-button w3-blue' />
-            </div>
-        </form>
-        <h1><a href=".">VOLTAR</a></h1>
-    </body>  
+        <% }} %>
+        <div "form-group" align='center'>
+                <form action='/novoevento' method='POST'>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Ano</label>
+                      <input type='text' placeholder='Ano' value=<%=ano%> name='ano'/>
+                      <label for="exampleInputPassword1">Mês</label>
+                      <input type='text' placeholder='Mês' value=<%=mes%> name='mes'/>
+                      <label for="exampleInputPassword1">Dia</label>
+                      <input type='text' placeholder='Dia' value=<%=dia%> name='dia'/>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="exampleInputPassword1">Horas</label>
+                            <input type='text' placeholder='Horas' name='horas'/>
+                            <label for="exampleInputPassword1">Minutos</label>
+                            <input type='text' placeholder='Minutos' name='minutos'/>
+                    </div>
+                    <div class="form-group">
+                            <label for="exampleInputPassword1">Designação</label>
+                            <input type='text' placeholder='Designação' name='designacao'/>
+                    </div>
+                    <div class="form-group">
+                            <label for="exampleInputPassword1">Duração</label>
+                            <input type='text' placeholder='Duração' name='duracao'/>
+                    </div>
+                    <div class="form-group">
+                            <label for="exampleInputPassword1">Local</label>
+                            <input type='text' placeholder='Local' name='local'/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Valor a pagar a cada músico</label>
+                        <input type='text' placeholder='Valor' name='valor'/>
+                </div>
+
+                    <div class="form-group">
+                            <input type='submit' value='Publicar' class="btn btn-primary" />
+                            <a class="btn btn-primary" data-toggle="collapse" href="." role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Voltar
+                            </a>
+
+
+                    </div>
+
+                  </form>
+        </div>
+
+
+
+    </body>
 </html>

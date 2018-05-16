@@ -1,58 +1,100 @@
-<!doctype html>
-<html>
-<head>
-    <title>iBanda</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body        { padding-top:80px; word-wrap:break-word; }
-    </style>
-</head>
-<body>
+<%- include('header') -%>
+
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
+            <div class="container">
 
-    <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+        
+        
+                                               
+                        <form action="/editProfile" method="post">
 
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+                            <h1><span class="fa fa-anchor"></span> Página de perfil :  <%= user.local.username %> </h1>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Data Nascimento</label>
+                                <input type="date" class="form-control" name="dn" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Grau</label>
+                                <input type="text" class="form-control" name="grau">
+                            </div>
+                            <div class="form-group">
+                                <label>Instrumento</label>
+                                <input type="text" class="form-control" name="instrumento">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="email" disabled>
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary btn-lg">Atualizar Perfil</button>
+                        </form>
+    
 
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>username</strong>: <%= user.local.username %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
+        
+                    </div>
+        
+                </div>
+        
+        <div class="row">
+
+                <!-- LOCAL INFORMATION -->
+
+                    <div class="well">
+                        <h3><span class="fa fa-user"></span> Local</h3>
+
+                            <p>
+                                <strong>id</strong>: <%= user._id %><br>
+                                <strong>username</strong>: <%= user.local.username %><br>
+                                <strong>password</strong>: <%= user.local.password %>
+                            </p>
+
+                    </div>
+
 
             </div>
-        </div>
+            <div class="row">
 
-    </div>
-    <div class="row">
+                <!-- FACEBOOK INFORMATION -->
 
-        <!-- FACEBOOK INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
+                    <div class="well">
+                        <h3 class="text-primary"><span class="fa fa-facebook"></span> Facebook</h3>
 
-                    <p>
-                        <strong>id</strong>: <%= user.facebook.id %><br>
-                        <strong>token</strong>: <%= user.facebook.token %><br>
-                        <strong>email</strong>: <%= user.facebook.email %><br>
-                        <strong>name</strong>: <%= user.facebook.name %>
-                    </p>
+                            <p>
+                                <strong>id</strong>: <%= user.facebook.id %><br>
+                                <strong>token</strong>: <%= user.facebook.token %><br>
+                                <strong>email</strong>: <%= user.facebook.email %><br>
+                                <strong>name</strong>: <%= user.facebook.name %>
+                            </p>
+
+                    </div>
+
 
             </div>
-        </div>
-
     </div>
+
+
 
 
 </div>
+
+<style>
+    .col-sm-6 {
+    text-align: center;
+    border: 1px solid rgb(16, 18, 151);
+    padding: 50px 0;
+}
+
+.row {
+    text-align: center;
+    padding: 70px 0;
+    }
+</style>
 </body>
 </html>

@@ -1,103 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<%- include('header') -%>
 
-     <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-     <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-
-<style>
-* {box-sizing: border-box;}
-ul {list-style-type: none;}
-body {font-family: Verdana, sans-serif;}
-
-.month {
-    padding: 70px 25px;
-    width: 100%;
-    background: #1abc9c;
-    text-align: center;
-}
-
-.month ul {
-    margin: 0;
-    padding: 0;
-}
-
-.month ul li {
-    color: white;
-    font-size: 20px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-}
-
-.month .prev {
-    float: left;
-    padding-top: 10px;
-}
-
-.month .next {
-    float: right;
-    padding-top: 10px;
-}
-
-.weekdays {
-    margin: 0;
-    padding: 10px 0;
-    background-color: #ddd;
-}
-
-.weekdays li {
-    display: inline-block;
-    width: 13.6%;
-    color: #666;
-    text-align: center;
-}
-
-.days {
-    padding: 10px 0;
-    background: #eee;
-    margin: 0;
-}
-
-.days li {
-    list-style-type: none;
-    display: inline-block;
-    width: 13.6%;
-    text-align: center;
-    margin-bottom: 5px;
-    font-size:12px;
-    color: #777;
-}
-
-.days li .active {
-    padding: 5px;
-    background: #1abc9c;
-    color: white !important
-}
-
-/* Add media queries for smaller screens */
-@media screen and (max-width:720px) {
-    .weekdays li, .days li {width: 13.1%;}
-}
-
-@media screen and (max-width: 420px) {
-    .weekdays li, .days li {width: 12.5%;}
-    .days li .active {padding: 2px;}
-}
-
-@media screen and (max-width: 290px) {
-    .weekdays li, .days li {width: 12.2%;}
-}
-</style>
-</head>
-<body>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-
-
-<% 
+<%
 var mesText
 switch(parseInt(mes)){
     case 1: mesText = 'Janeiro'; break;
@@ -128,39 +31,132 @@ if(proxmes===12){
     var proxano = ano
 }
 %>
-<div class="month">      
-  <ul>
-    <li class="prev"><a href="/eventos/<%=antano%>/<%=antmes%>">&#10094;</a></li>
-    <li class="next"><a href="/eventos/<%=proxano%>/<%=proxmes%>">&#10095;</a></li>
-    <li>
-      <%=mesText%><br>
-      <span style="font-size:18px"><%=ano%></span>
-    </li>
-  </ul>
+<div class="principal">
+        <div class="month">
+                <ul>
+                  <li class="prev"><a href="/eventos/<%=antano%>/<%=antmes%>">&#10094;</a></li>
+                  <li class="next"><a href="/eventos/<%=proxano%>/<%=proxmes%>">&#10095;</a></li>
+                  <li>
+                    <%=mesText%><br>
+                    <span style="font-size:18px"><%=ano%></span>
+                  </li>
+                </ul>
+              </div>
+
+              <ul class="weekdays">
+                <li>Mo</li>
+                <li>Tu</li>
+                <li>We</li>
+                <li>Th</li>
+                <li>Fr</li>
+                <li>Sa</li>
+                <li>Su</li>
+              </ul>
+
+              <ul class="days">
+              <%for(var j=1;j<start;j++){%>
+                  <li></li>
+              <%}%>
+              <%for(var i=1;i<=range;i++){
+                  if(dia===i){%>
+                      <li><span class="active"><a href="/eventos/<%=ano%>/<%=mes%>/<%=i%>"><%=i%></a></span></li>
+                  <%}else{%>
+                      <li><a href="/eventos/<%=ano%>/<%=mes%>/<%=i%>"><%=i%></a></li>
+                  <%}%>
+              <%}%>
+              </ul>
+
 </div>
+<style>
+        * {box-sizing: border-box;}
+        /*ul {list-style-type: none;}*/
+        /*body {font-family: Verdana, sans-serif;}*/
 
-<ul class="weekdays">
-  <li>Mo</li>
-  <li>Tu</li>
-  <li>We</li>
-  <li>Th</li>
-  <li>Fr</li>
-  <li>Sa</li>
-  <li>Su</li>
-</ul>
+        .month {
+            padding: 70px 25px;
+            width: 100%;
+            background: #1abc9c;
+            text-align: center;
+        }
 
-<ul class="days">
-<%for(var j=1;j<start;j++){%>
-    <li></li>
-<%}%>  
-<%for(var i=1;i<=range;i++){
-    if(dia===i){%>
-        <li><span class="active"><a href="/eventos/<%=ano%>/<%=mes%>/<%=i%>"><%=i%></a></span></li>
-    <%}else{%>
-        <li><a href="/eventos/<%=ano%>/<%=mes%>/<%=i%>"><%=i%></a></li>
-    <%}%>
-<%}%>
-</ul>
+        .month ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .month ul li {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .month .prev {
+            float: left;
+            padding-top: 10px;
+        }
+
+        .month .next {
+            float: right;
+            padding-top: 10px;
+        }
+
+        .weekdays {
+            margin: 0;
+            padding: 10px 0;
+            background-color: #ddd;
+        }
+
+        .weekdays li {
+            display: inline-block;
+            width: 13.6%;
+            color: #666;
+            text-align: center;
+        }
+
+        .days {
+            padding: 10px 0;
+            background: #eee;
+            margin: 0;
+        }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 13.6%;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size:12px;
+            color: #777;
+        }
+
+        .days li .active {
+            padding: 5px;
+            background: #1abc9c;
+            color: white !important
+        }
+
+        /* Add media queries for smaller screens */
+        @media screen and (max-width:720px) {
+            .weekdays li, .days li {width: 13.1%;}
+        }
+
+        @media screen and (max-width: 420px) {
+            .weekdays li, .days li {width: 12.5%;}
+            .days li .active {padding: 2px;}
+        }
+
+        @media screen and (max-width: 290px) {
+            .weekdays li, .days li {width: 12.2%;}
+
+        }
+
+        .month {
+        background-color: grey;
+    }
+
+</style>
+
 
 </body>
 </html>

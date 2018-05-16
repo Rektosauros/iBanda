@@ -1,5 +1,8 @@
+import { userInfo } from 'os';
+
 var express = require('express');
 var router = express.Router();
+
 
 var passport = require('passport'); 
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -36,32 +39,38 @@ var LocalStrategy = require('passport-local').Strategy;
 
     // process the signup form
     router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/login', // redirect to the secure profile section
+        successRedirect : '/signupInfo', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
 
+    
 
     // =====================================
     // PROFILE SECTION =====================
     // =====================================
     router.get('/profile', isLoggedIn, function(req, res) {
+        console.log("CENAS");        
         res.render('profile.ejs', {
-            user : req.user 
+            user : req.user ,
+
         });
+        console.log("CENAS");
     });
 
+   
     // =====================================
     // LOGOUT ==============================
     // =====================================
     router.get('/logout', function(req, res) {
+        console.log("Logout efetuado")
         req.logout();
-        res.redirect('/');
+        res.redirect('/views/');
     });
 
 
     // =====================================
-    // FACEBOOK ROUTES =====================
+    // FACEBOOK ROUTES =====================    
     // =====================================
     // route for facebook authentication and login
     router.get('/auth/facebook', passport.authenticate('facebook', { 
@@ -71,11 +80,13 @@ var LocalStrategy = require('passport-local').Strategy;
     // handle the callback after facebook has authenticated the user
     router.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
-            successRedirect : '/main',
-            failureRedirect : '/index'
+            successRedirect : '/views/main',
+            failureRedirect : '/views/'
         }));
 
     router.post('/login', passport.authenticate('local', { successRedirect: '/main', failureRedirect: '/index' }));
+
+    
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

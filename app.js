@@ -26,6 +26,7 @@ mongoose.Promise=global.Promise
 let db = mongoose.connection;
 db.once('open',function(){
   console.log('Ligado ao mongoDb')
+  
 })
 
 //PASSPORT
