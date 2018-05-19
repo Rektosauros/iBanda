@@ -1,0 +1,27 @@
+<%- include('header') -%>
+
+        
+        
+            <label>Lista de Bandas:</label>
+
+            <% for(var i = 0; i<bandas.length ; i++){ %>
+            <ul class="list-group"> 
+                <li class="list-group-item list-group-item-light">Banda número : <%=i+1%></li>            
+                <li class="list-group-item list-group-item-dark">Nome da Banda: <%=bandas[i].nome%></li>
+                <li class="list-group-item list-group-item-dark">Nome do Produtor: <%=bandas[i].lider%></li>
+            </ul>
+            <br><br>
+            <% } %>
+
+            
+
+           
+           
+        </form>
+        <style>
+            .li {
+    display: inline;
+}
+        </style>
+    </body>
+</html>

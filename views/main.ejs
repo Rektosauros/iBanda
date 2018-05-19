@@ -1,4 +1,8 @@
+<% if(userInfo == "admin"){ %>
+<%- include('header_admin') -%>
+<% }else{    %>
 <%- include('header') -%>
+<% } %>
 
 
 
@@ -10,8 +14,129 @@
                 <h3>Noticias</h3>
 
         </div>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="exampleModalLongTitle">Completar registo <br> (Até o registo estar completo, esta mensagem irá sempre aparecer quando fizer login)</h3>
+                    </div>
+                    <div class="modal-body">
+                            <form action="/addInfo" method="post">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Data Nascimento</label>
+                                    <input type="date" class="form-control" name="dn">
+                                </div>
+                                <div class="form-group">
+                                    <label>Grau</label>
+                                    <input type="text" class="form-control" name="grau">
+                                </div>
+                                <div class="form-group">
+                                    <label>Instrumento</label>
+                                    <input type="text" class="form-control" name="instrumento">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" name="email">
+                                </div>
+            
+                                <button type="submit" class="btn btn-primary btn-lg">Completar Registo</button>
+                            </form>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
 
-    </body>
+              <% if(noticias){
+                for(var i=0; i<noticias.length; i++){ %>
+                    <table class='w3-table'>
+                        <tr>
+                            <th>Data: </th>
+                            <td>
+                                <% var data = new Date(Date.parse(eventos[i].data)) %>
+                                <%=data.getDate()%>/<%=data.getMonth()+1%>/<%=data.getFullYear()%>
+                                às <%=data.getHours()%>:<%if(data.getMinutes() < 10){%>0<%= data.getMinutes() %><% } else { %><%= data.getMinutes() %>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                        <tr>
+                            <th>Noticia: </th>
+                            <td>
+                                <%=noticia[i].desc%>
+                            </td>
+                        </tr>
+                        <tr>
+                                <th>Autor: </th>
+                                <td>
+                                    <%=noticia[i].autor %>
+                                </td>
+                            </tr>
+                    </table>
+                <% }} %>
+            
+            
+            
+            
+            
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="container">
+                            <h3>Noticias</h3>
+            
+                        </div>
+                        <form action="/criarNoticia" method="post">
+                            <div class="form-group" >
+                                <label>Nova Notícia:</label>
+                                <input type="text" class="form-control" name="descricao"> <br>
+                                <form>
+                                    <% 
+                                        var d = new Date
+                                        var hora = d.toISOString() 
+                                    %>
+                                    Publicar a noticia como:<br>
+                                    <input type="radio" name="privacidade" id="privado" onClick="validatePriv();">Privada
+                                    <input type="radio" name="privacidade" id="publico" onClick="validatePriv();">Publica
+                                    <br>
+                                  </form>
+                                  <br>
+            
+                                <button align="right "type="submit" class="btn btn-primary btn-lg">Publicar</button>
+                            </div>
+                        </form>
+            
+                        <% for(var i = 0; i<noticias.length ; i++){ %>
+                            <ul class="list-group"> 
+            
+                                <!--acrescentar a data e hora de publicaçao da noticia -->
+                       
+                                <li class="list-group-item list-group-item-dark">Autor da notícia: <%=noticias[i].autor%></li>
+                                <li class="list-group-item list-group-item-dark">Notícia: <%=noticias[i].descricao%></li>
+                            </ul>
+                            <br><br>
+                            <% } %>
+                    </div>
+                    
+            
+            
+                </body>
+
+
+    <script>
+
+        $(document).ready(function() {
+            if ( <%= info %> == false)
+                $('#exampleModalCenter').modal('show');
+        });
+
+        
+    </script>
     <!-- <style>
         ul{
             list-style-type :none;

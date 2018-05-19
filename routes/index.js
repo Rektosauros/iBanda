@@ -2,22 +2,51 @@ var express = require('express');
 var router = express.Router();
 var OBRAS = require('../models/obras')
 var EVENTOS = require('../models/eventos')
-var BANDA = require('../models/banda')
+var BANDAS = require('../models/bandas')
 var USERS = require('../models/user')
 var USER_INFO = require('../models/userInfo')
 var ENSAIOS = require('../models/ensaios')
+var NOTICIA = require ('../models/noticias')
+var COLECOES = require ('../models/colecoes')
 var calendar = require('node-calendar');
 var bodyParser = require('body-parser');
+
+//import {isLoggedIn} from 'authentication'
 
 
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+//var hasInfo= "null";
 /* GET home page. */
-router.get('/main', function(req, res, next) {
-  res.render('main.ejs')
-  console.warn("SSASDSAD")
+router.get('/main', isLoggedIn, function(req, res, next) {
+  /*if (!USER_INFO.find({user_id:req.user._id})){
+    console.log("PILA");
+  }else
+    console.log("Pilokas")*/
+    
+  USER_INFO.find({user_id:req.user._id}).exec(function(err, result){
+    if(err) throw err;
+    if(!result.length){
+      hasInfo = "false";
+      console.log ("false");
+    }
+    else{
+      hasInfo = "true";
+      console.log("true");
+    }
+    NOTICIA.find().exec(function(err, not){
+      if(err) throw err;
+      res.render('main.ejs',{
+        noticias: not,
+        userInfo: result[0].status,
+        info: hasInfo
+      })
+    })
+  })
+   
+ // console.log("ID: "+req.user._id)
+
 })
 
 router.get('/signupInfo', urlencodedParser, function(req, res) {
@@ -227,9 +256,11 @@ router.get('/partituras/:id', function(req,res,next){
   })
 })
 
-router.post('/addInfo',function(req, res, next){
+router.post('/addInfo', isLoggedIn,function(req, res, next){
+  console.log("user: "+req.user._id)
   var userInfo = new USER_INFO({
-    user_id: req.user.local._id,
+    user_id: req.user._id,
+    status: "user",
     name: req.body.name,
     dn: req.body.dn,
     grau: req.body.grau,
@@ -248,6 +279,10 @@ router.post('/addInfo',function(req, res, next){
   //res.end(JSON.stringify(userInfo));
   res.redirect('/login')
 })
+
+
+
+
 
 router.post('/editProfile', function(req, res,next){
   if(!user){
@@ -274,6 +309,63 @@ router.post('/editProfile', function(req, res,next){
   })
 
 })
+
+router.get('/completeProfile', function (req, res){
+  userInfo.findOne({req:params.id}, function(err, docs){
+    if(err) res.redirect('/main');
+    else res.render('/profile' );
+  })
+})
+
+router.get('/mostrarNoticias',(req,res,next)=>{
+  NOTICIA.find().exec(function(err, result){
+    if(err) throw err;
+    console.log (res[0]);
+    res.render('main.ejs',{
+      noticias:result,
+    });
+  })
+})
+
+router.post('/criarNoticia',(req,res,next)=>{
+ /* var autor = userInfo()  
+  var noticia = new NOTICIA({
+    autor: autor,
+    descricao : descricao,
+    priv : priv,
+    data : new Date(Date.now()).toLocaleDateString()
+  })
+  noticias.save((err, resultado)=> {
+    if(!err){
+      console.log("Noticia adicionada:"+req.body.autor)
+    }
+    else{console.log("erro" + err)}
+  })*/
+  console.log("noticias");
+  res.update('/main')
+})
+
+router.get('/listarBandas', (req, res)=>{
+  BANDAS.find().exec(function(err, result){
+    if(err) throw err;
+    console.log (res[0]);
+    res.render('listarBandas.ejs',{
+      bandas:result,
+    });
+  })
+  
+
+})
+
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+      return next();
+
+  // if they aren't redirect them to the home page
+  res.redirect('/');
+}
 
 
 

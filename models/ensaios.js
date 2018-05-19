@@ -6,6 +6,7 @@ var EnsaioSchema = new Schema({
     duracao: {type:String,required:true},
     local: {type:String,required:true},
     designacao: {type:String,required:true},
+    participantes:[{type:String,required:true}]
 })
 
 module.exports=mongoose.model('ENSAIOS',EnsaioSchema,'ensaios')

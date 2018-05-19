@@ -1,4 +1,4 @@
-import { userInfo } from 'os';
+//import { userInfo } from 'os';
 
 var express = require('express');
 var router = express.Router();
@@ -39,7 +39,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
     // process the signup form
     router.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/signupInfo', // redirect to the secure profile section
+        successRedirect : '/login', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -89,7 +89,7 @@ var LocalStrategy = require('passport-local').Strategy;
     
 
 // route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+/*export*/ function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())

@@ -7,6 +7,10 @@ var userInfoSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId, 
       ref: 'User'
     },
+    status:{
+        type: String,
+        required : true
+    },
     name:{
         type: String,
         required : true
